@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApiPlayground.Api.Exceptions;
 using WebApiPlayground.Api.Loggers;
 
 namespace WebApiPlayground.Api.Controllers
@@ -23,14 +24,10 @@ namespace WebApiPlayground.Api.Controllers
                     throw new HttpResponseException(
                         new HttpResponseMessage(HttpStatusCode.BadRequest)
                             {Content = new StringContent("This is a level 1 exception")});
-                case 2:
-                    var exceptionToThrow = new HttpResponseException(
-                        new HttpResponseMessage(HttpStatusCode.BadRequest)
-                            { Content = new StringContent("This is a level 2 exception") });
-                    _logger.LogException(exceptionToThrow.Message);
-                    throw exceptionToThrow;
                 case 3:
-                    var redirectTo2 = $"{Url.Content("~/")}api/exception/{id}/level2/0";
+                    throw new Level3Exception("This is a level 3 exception.  Check the exception logs, all exceptions should be there.");
+                case 2:
+                    var redirectTo2 = $"{Url.Content("~/")}api/exception/{id}/level3/0";
                     return Redirect(redirectTo2);
                 case 4:
                     var redirectTo4 = $"{Url.Content("~/")}api/exception/{id}/level4/0";

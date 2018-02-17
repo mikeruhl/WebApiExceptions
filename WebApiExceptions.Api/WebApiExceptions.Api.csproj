@@ -185,6 +185,7 @@
     <Compile Include="Controllers\Level4ExceptionController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Exceptions\Level2Exception.cs" />
+    <Compile Include="Exceptions\Level3Exception.cs" />
     <Compile Include="Exceptions\Level4Exception.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
