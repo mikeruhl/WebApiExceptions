@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiExceptions.Api", "WebApiExceptions.Api\WebApiExceptions.Api.csproj", "{B4FC436C-664D-4EC9-AB34-5F8B9EF8AEE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4FC436C-664D-4EC9-AB34-5F8B9EF8AEE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4FC436C-664D-4EC9-AB34-5F8B9EF8AEE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4FC436C-664D-4EC9-AB34-5F8B9EF8AEE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4FC436C-664D-4EC9-AB34-5F8B9EF8AEE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BC83020E-F2FD-48FB-A170-AD2C678D1799}
+	EndGlobalSection
+EndGlobal
