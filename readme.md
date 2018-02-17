@@ -1,11 +1,11 @@
 
 # Project Name
 
-TODO: Write a project description
+WebApiExceptions
 
 ## Installation
 
-TODO: Describe the installation process
+Clone repository, restore nuget packages, build/debug.  Please don't deploy this.  You'll only upset yourself.  This is a demo.
 
 ## Usage
 
