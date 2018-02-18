@@ -15,27 +15,36 @@ Just in case that link ever dies, I'll lay out those 4 levels here and how to ca
 
 Swashbuckle/Swagger was not included, however, MS's Web API Help Pages are included.  So if you ever want to look at all of the endpoints, run the app and goto /Help.
 
-1. HttpResponseException
-	This is your basic exception response in Web API 2.  You'll reach this going to api/exception/1.  What are you doing is creating a `HttpResponseException` and throwing it.  This gets returned to the client.
-2. Exception Filters
-	These work by adding attributes to your controller or action (depending upon your desired scope.  This gives you the ability to focus behavior down to the action but reuse code in multiple places.  You can reach this with api/exception/2.  This will redirect to another controller in order to invoke the exception filter.  So head over to Level2ExceptionController to check that out.  As you can see on the Get method, there is a `Level2ExceptionFilter` attribute.  This attribute inherits from `ExceptionFilterAttribute`.  By simple overriding the `OnException` method, you can intercept these exceptions and do what you want.
+### 1. HttpResponseException
 
-3. Logging
-	ASP.NET Web API has a built-in way to do some logging with exceptions.  You'll set this up in your `WebApiConfig` class by adding 
-	```c#
-	 config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
-	 ```  
-	 By replacing this service with your own custom service, you can implement your own custom logger.  My logging server is called `BadLogger` because it's a terrible logging service.  In practice, I will typically use an open-source logger.  I wanted to keep this demo as simple as possible though, so I only used the necessary frameworks to get this to work.  `BadLogger` uses `InMemoryLogRepository`, which keeps the logs of your calls and exceptions during the debug session in memory.  You can retrieve these at api/log and api/exceptionlog.  If you visit api/exception/3, you will get an exception back.  Then, if you visit api/exceptionlog, you will see that exception in the list!
-4. Exception Handlers
-	This is it.  This is the final level.  This is a global handler that you register like so:
-	```C#
-	config.Services.Replace(typeof(IExceptionHandler), new Level4ExceptionHandler());
-	```
-	By registering this service, you're going to catch all unhandled exceptions.  Notice my handler is named `Level4ExceptionHandler`.  There's a reason for this!  I'm only doing something with Level4Exceptions.  These are created when you visit api/exception/4.  If you place a breakpoint in the handler class and throw a Level3Exception, you'll notice it passes right through so the unhandled exception is returned.  But for Level4, we're passing back a nice neat response message like we did in level 1.  The difference here is that we're doing this on a global scope instead of per-action.  
+This is your basic exception response in Web API 2.  You'll reach this going to api/exception/1.  What are you doing is creating a `HttpResponseException` and throwing it.  This gets returned to the client.
+
+### 2. Exception Filters
+
+These work by adding attributes to your controller or action (depending upon your desired scope.  This gives you the ability to focus behavior down to the action but reuse code in multiple places.  You can reach this with api/exception/2.  This will redirect to another controller in order to invoke the exception filter.  So head over to Level2ExceptionController to check that out.  As you can see on the Get method, there is a `Level2ExceptionFilter` attribute.  This attribute inherits from `ExceptionFilterAttribute`.  By simple overriding the `OnException` method, you can intercept these exceptions and do what you want.
+
+### 3. Logging
+
+ASP.NET Web API has a built-in way to do some logging with exceptions.  You'll set this up in your `WebApiConfig` class by adding 
+
+```c#
+ config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
+ ```  
+ 
+By replacing this service with your own custom service, you can implement your own custom logger.  My logging server is called `BadLogger` because it's a terrible logging service.  In practice, I will typically use an open-source logger.  I wanted to keep this demo as simple as possible though, so I only used the necessary frameworks to get this to work.  `BadLogger` uses `InMemoryLogRepository`, which keeps the logs of your calls and exceptions during the debug session in memory.  You can retrieve these at api/log and api/exceptionlog.  If you visit api/exception/3, you will get an exception back.  Then, if you visit api/exceptionlog, you will see that exception in the list!
+
+### 4. Exception Handlers
+
+This is it.  This is the final level.  This is a global handler that you register like so:
+```C#
+config.Services.Replace(typeof(IExceptionHandler), new Level4ExceptionHandler());
+```
+By registering this service, you're going to catch all unhandled exceptions.  Notice my handler is named `Level4ExceptionHandler`.  There's a reason for this!  I'm only doing something with Level4Exceptions.  These are created when you visit api/exception/4.  If you place a breakpoint in the handler class and throw a Level3Exception, you'll notice it passes right through so the unhandled exception is returned.  But for Level4, we're passing back a nice neat response message like we did in level 1.  The difference here is that we're doing this on a global scope instead of per-action.  
 
 ## Other Notes
 
 One more thing.  I never mentioned `ApiLogHandler`.  You may have noticed this.  It gets plugged in during the config setup with this line:
+
 ```C#
 config.MessageHandlers.Add(new ApiLogHandler());
 ```
