@@ -4,7 +4,7 @@ using WebApiPlayground.Api.Services;
 
 namespace WebApiPlayground.Api.Controllers
 {
-    [Route("api/exception/{id}/level2/{type}")]
+    [Route("api/exception/2")]
     public class Level2ExceptionController : ApiController
     {
         private readonly ExceptionService _exceptionService;
@@ -17,9 +17,9 @@ namespace WebApiPlayground.Api.Controllers
         [HttpGet]
         [Level2ExceptionFilter]
         // GET: api/exception/x/level2/5
-        public IHttpActionResult Get(int id, int type)
+        public IHttpActionResult Get()
         {
-            _exceptionService.ThrowLevel2Exception(id * type);
+            _exceptionService.ThrowLevel2Exception(2);
             return Ok();
         }
     }
